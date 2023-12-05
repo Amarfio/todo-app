@@ -76,6 +76,11 @@ const Create = () => {
       })
       .catch((error) => {
         console.log(error);
+        if (error.code === "ERR_NETWORK") {
+          setIsPending(false);
+          alert("API network error");
+          setButtonText("Add Task");
+        }
       });
   };
 
