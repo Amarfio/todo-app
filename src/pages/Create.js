@@ -62,7 +62,7 @@ const Create = () => {
     // })
 
     //code for base url
-    const baseURL = apiUrl+"todos";
+    const baseURL = apiUrl + "todos";
 
     //code for axios to hit the apis
     axios
@@ -77,6 +77,11 @@ const Create = () => {
       })
       .catch((error) => {
         console.log(error);
+        if (error.code === "ERR_NETWORK") {
+          setIsPending(false);
+          alert(error.message);
+          setButtonText("Add Task");
+        }
       });
   };
 
