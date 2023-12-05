@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { apiUrl } from "../utils/apiUrl";
 
 const Create = () => {
   // e.preventDefault()
@@ -23,8 +24,8 @@ const Create = () => {
     const data = {
       title: title,
       description: description,
-      startdateTime: startDate,
-      enddateTime: endDate,
+      startDateTime: startDate,
+      endDateTime: endDate,
     };
 
     // fetch('http://localhost:8081/todo-api/public/api/v1/todos',{
@@ -61,7 +62,7 @@ const Create = () => {
     // })
 
     //code for base url
-    const baseURL = "http://localhost:8081/todo-api/public/api/v1/todos";
+    const baseURL = apiUrl + "todos";
 
     //code for axios to hit the apis
     axios
