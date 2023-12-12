@@ -21,12 +21,46 @@ const Create = () => {
     setIsPending(true);
     setButtonText("Adding task...");
     // console.log(task); return false;
-    const data = {
-      title: title,
-      description: description,
-      startDateTime: startDate,
-      endDateTime: endDate,
-    };
+
+    if(title===""){
+      alert("title cannot be empty");
+    }else if(description === ""){
+      alert("description cannot be empty");
+    }else if(startDate === ""){
+      alert("start date cannot be empty");
+    }else if(endDate === ""){
+      alert("end date cannot be empty")
+    }else{
+      const data = {
+        title: title,
+        description: description,
+        startDateTime: startDate,
+        endDateTime: endDate,
+      };
+  
+      const baseURL = apiUrl + "todos";
+  
+      //code for axios to hit the apis
+      axios
+        .post(baseURL, data)
+        .then((response) => {
+          if (response.responseCode === 417) {
+            setIsPending(false);
+            alert("error in adding new task");
+          }
+          alert("New task added succesfully");
+          history.push("/");
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.code === "ERR_NETWORK") {
+            setIsPending(false);
+            alert(error.message);
+            setButtonText("Add Task");
+          }
+        });
+    }
+    
 
     // fetch('http://localhost:8081/todo-api/public/api/v1/todos',{
     //     method: 'POST',
@@ -62,27 +96,7 @@ const Create = () => {
     // })
 
     //code for base url
-    const baseURL = apiUrl + "todos";
-
-    //code for axios to hit the apis
-    axios
-      .post(baseURL, data)
-      .then((response) => {
-        if (response.responseCode === 417) {
-          setIsPending(false);
-          alert("error in adding new task");
-        }
-        alert("New task added succesfully");
-        history.push("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.code === "ERR_NETWORK") {
-          setIsPending(false);
-          alert(error.message);
-          setButtonText("Add Task");
-        }
-      });
+    
   };
 
   return (
@@ -106,6 +120,7 @@ const Create = () => {
 
         <label>Start date:</label>
         <input
+          required
           type="datetime-local"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
@@ -113,6 +128,7 @@ const Create = () => {
 
         <label>End date:</label>
         <input
+          required
           type="datetime-local"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}

@@ -5,6 +5,8 @@ const TodoDataDisplay = (props) => {
   const todo = props.details;
   const [isPending, setIsPending]= useState(false);
   const [buttonText, setButtonText] = useState("Update Status");
+  const [title, setTitle]= useState("");
+  const [description, setDescription] = useState("");
   //   const [startDateTimeValue, setStartDateTimeValue] = useState("");
   //   const [endDateTimeValue, setEndDateTimeValue] = useState("");
   //   const title = props.title;
@@ -15,19 +17,20 @@ const TodoDataDisplay = (props) => {
   //   console.log(newDate.toLocaleString());
   //   setStartDateTimeValue(newDate.toLocaleString());
 
-  const handleSubmit=(e)=>{
+  const handleSubmitUpdate=(e)=>{
     e.preventDefault();
 
-    // const 
+
+
   }
   return (
-    <form onSubmit={""}>
+    <form onSubmit={handleSubmitUpdate}>
       <label>Title</label>
       <input
         type="text"
         required
+        onChange={(e) => setTitle(e.target.value)}
         value={todo.title}
-        // onChange={(e) => setTitle(e.target.value)}
       />
 
       <label>Description</label>
@@ -53,9 +56,9 @@ const TodoDataDisplay = (props) => {
 
     <label>Status:</label>
       <select id="">
-        <option value=""></option>
-        <option value="1">in progress</option>
-        <option value="2">completed</option>
+        <option value={todo.status}>{todo.status}</option>
+        <option value="in progress">in progress</option>
+        <option value="completed">completed</option>
         {/* <option value="3"></option> */}
       </select>
 
